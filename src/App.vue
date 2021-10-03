@@ -33,9 +33,9 @@
 
     <router-link :to="{ name: 'EventList' }">Home</router-link> |
     <router-link :to="{ name: 'About' }">About</router-link>
-    <span v-if="isAdmin">
-      | <router-link :to="{ name: 'AddEvent' }">New Event</router-link>
-    </span>
+    <span v-if="isAdmin"
+      >| <router-link :to="{ name: 'AddEvent' }">New Event</router-link></span
+    >
   </div>
 
   <!-- new element -->
@@ -49,11 +49,12 @@ export default {
   computed: {
     currentUser() {
       return localStorage.getItem('user')
+    },
+    isAdmin() {
+      return AuthService.hasRoles('ROLE_ADMIN')
     }
   },
-  isAdmin() {
-    return AuthService.hasRoles('ROLE_ADMIN')
-  },
+
   methods: {
     logout() {
       AuthService.logout()
