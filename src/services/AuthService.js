@@ -36,5 +36,12 @@ export default {
         } else {
             return false
         }
+    },
+    register(user) {
+        return apiClient.post('/auth/registers' , {
+            username: user.username,
+            email: user.email,
+            password: user.password
+        })
     }
 }
