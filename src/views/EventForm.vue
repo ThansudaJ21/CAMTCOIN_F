@@ -7,7 +7,7 @@
 
       <BaseInput v-model="event.title" type="text" label="Title" />
 
-      <BaseInput v-model="event.description" type="text" label="Description" />
+      <!-- <BaseInput v-model="event.description" type="text" label="Description" /> -->
 
       <h3>Where is your event?</h3>
 
