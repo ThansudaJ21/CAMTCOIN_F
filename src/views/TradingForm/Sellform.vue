@@ -1,12 +1,12 @@
 <template>
   <div>
-    <h1>SELL COINS</h1>
+    <h1 class="title-sell">SELL COINS</h1>
     <form @submit.prevent="saveEvent">
-        <br>
+      <br />
       <div class="row">
         <label>Input amount coins</label>
       </div>
-      
+
       <div class="row">
         <BaseInput v-model="event.category" type="text" label="Amount coins" />
         <div class="text">Coins</div>
@@ -81,6 +81,10 @@ export default {
 }
 </script>
 <style>
+.title-sell {
+  font-weight: bold;
+  color: #cc1f1f;
+}
 .btn_name {
   margin-right: 10px;
 }

@@ -1,5 +1,39 @@
 <template>
-  <h1>Events For Good</h1>
+  <div class="container trading">
+    <div class="row">
+      <div class="col-4">
+        <div class="profile-card">
+          <img
+            src="../assets/pusheen_hi.jpg"
+            style="width: 250px; border-radius: 50%; margin-bottom: 20px"
+          />
+          <h3 class="full-name">Pusheen The Cat</h3>
+          <h6 class="username">@username</h6>
+          <h4>50 THB</h4>
+          <h4>10 CAMT COINS</h4>
+        </div>
+      </div>
+      <div class="col-8">
+        <h2 class="text-available">Available coins for today "amount" coins</h2>
+        <div class="coin-card">
+          <div class="row">
+            <div class="col-1">
+              <img src="../assets/camtcoin.png" style="width: 50px" />
+            </div>
+            <div class="col-9 coin-name">
+              <h5 class="coin-name">CAMT COIN</h5>
+            </div>
+            <div class="col-2">
+              <div class="row">10 THB</div>
+              <div class="row">00.00 %</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--   <h1>Events For Good</h1>
 
   <div class="events">
     <div class="search-box">
@@ -31,36 +65,36 @@
         Next Page</router-link
       >
     </div>
-  </div>
+  </div> -->
 </template>
 
 <script>
 // @ is an alias to /src
-import EventCard from '@/components/EventCard.vue'
-import EventService from '@/services/EventService.js'
+/* import EventCard from '@/components/EventCard.vue'
+import EventService from '@/services/EventService.js' */
 
 // import axios from 'axios'
 export default {
-  name: 'EventList',
-  props: {
+  name: 'Trading'
+  /*   props: {
     page: {
       type: Number,
       required: true
     }
-  },
-  components: {
+  }, */
+  /*   components: {
     EventCard // register it as a child component
-  },
-  data() {
+  }, */
+  /*   data() {
     return {
       events: null,
       totalEvents: 0, // <--- Added this to store totalEvents
       keyword: null
     }
-  },
+  }, */
 
   // eslint-disable-next-line no-unused-vars
-  beforeRouteEnter(routeTo, routeFrom, next) {
+  /*   beforeRouteEnter(routeTo, routeFrom, next) {
     EventService.getEvents(3, parseInt(routeTo.query.page) || 1)
       .then((response) => {
         next((comp) => {
@@ -94,9 +128,9 @@ export default {
       })
       .catch(() => {
         return { name: 'NetworkError' }
-      })
-  },
-  methods: {
+      }) */
+}
+/*   methods: {
     updateKeyword() {
       var queryFunction
       if (this.keyword === '') {
@@ -116,42 +150,58 @@ export default {
           return { name: 'NetworkError' }
         })
     }
-  },
-  computed: {
-    hasNextPage() {
-      // First, calculate total pages
-      let totalPages = Math.ceil(this.totalEvents / 3) // 2 is events per page
-
-      // Then check to see if the current page is less than the total pages.
-      return this.page < totalPages
-    }
-  }
-}
+  } 
+}*/
 </script>
 <style scoped>
-.events {
-  display: flex;
+.trading {
   flex-direction: column;
   align-items: center;
 }
-.search-box {
-  width: 300px;
-}
-.pagination {
-  display: flex;
-  width: 290px;
-}
-.pagination a {
-  flex: 1;
-  text-decoration: none;
-  color: #2c3e50;
+
+.profile-card {
+  padding: 20px;
+  cursor: pointer;
+  border: 1px solid #7e4626;
+  border-radius: 2%;
 }
 
-#page-prev {
-  text-align: left;
+.profile-card:hover {
+  transform: scale(1.01);
+  box-shadow: 0 3px 12px 0 #00000033;
 }
 
-#page-next {
-  text-align: right;
+.coin-card {
+  padding: 20px;
+  cursor: pointer;
+  border: 1px solid orangered;
+  margin-top: 20px;
+}
+
+.coin-card:hover {
+  transform: scale(1.01);
+  box-shadow: 0 3px 12px 0 #00000033;
+}
+
+.full-name {
+  font-weight: bold;
+  color: #7e4626;
+}
+
+.username {
+  font-weight: bold;
+  color: #b47956;
+}
+
+.text-available {
+  font-weight: bolder;
+  color: #0f0f0f;
+}
+
+.coin-name {
+  text-align: start;
+  font-weight: bold;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 </style>

@@ -1,27 +1,27 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import EventList from '../views/EventList.vue'
+import Login from '@/views/Authentication/LoginForm.vue'
+import Register from '@/views/Authentication/RegisterForm.vue'
+import Trading from '../views/Trading.vue'
+import Buycoins from '@/views/TradingForm/Buyform.vue'
+import Sellcoins from '@/views/TradingForm/Sellform.vue'
+import NotFound from '@/views/NotFound.vue'
+import NetWorkError from '@/views/NetworkError.vue'
+import NProgress from 'nprogress'
 // import About from '../views/About.vue'
 // import EventDetails from '@/views/event/Details.vue'
 // import EventRegister from '@/views/event/Register.vue'
 // import EventEdit from '@/views/event/Edit.vue'
-import EventLayout from '@/views/event/Layout.vue'
-import NotFound from '@/views/NotFound.vue'
+/* import EventLayout from '@/views/event/Layout.vue' */
 // import AddEvent from '@/views/EventForm.vue'
-import NetWorkError from '@/views/NetworkError.vue'
-import NProgress from 'nprogress'
-import EventService from '@/services/EventService.js'
-import GStore from '@/store'
+/* import EventService from '@/services/EventService.js'
+import GStore from '@/store' */
 // import OrganizerService from '@/services/OrganizerService.js'
-import Login from '@/views/LoginForm.vue'
-import Register from '@/views/RegisterForm.vue'
-import Buycoins from '@/views/Buyform.vue'
-import Sellcoins from '@/views/Sellform.vue'
 
 const routes = [
   {
     path: '/',
-    name: 'EventList',
-    component: EventList,
+    name: 'Trading',
+    component: Trading,
     props: (route) => ({ page: parseInt(route.query.page) || 1 })
   },
 
@@ -40,7 +40,7 @@ const routes = [
   //       })
   //   }
   // },
-  {
+/*   {
     path: '/event/:id',
     name: 'EventLayout',
     props: true,
@@ -66,7 +66,7 @@ const routes = [
     children: [
 
     ]
-  },
+  }, */
   {
     path: '/404/:resource',
     name: '404Resource',

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>BUY COINS</h1>
+    <h1 class="title-buy">BUY COINS</h1>
     <form @submit.prevent="saveEvent">
       <br />
       <div class="row">
@@ -74,6 +74,10 @@ export default {
 }
 </script>
 <style>
+.title-buy {
+  font-weight: bold;
+  color: #208320;
+}
 .text {
   margin-left: 10px;
   font-size: 40px;

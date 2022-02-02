@@ -4,6 +4,13 @@
   </div>
   <div id="nav">
     <nav class="navbar navbar-expand">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <router-link to="/" class="nav-link" style="color: orange">
+            <img src="../src/assets/camtcoin.png" style="width: 40px" /> CAMT COINS
+          </router-link>
+        </li>
+      </ul>
       <ul v-if="!GStore.currentUser" class="navbar-nav ml-auto">
         <li class="nav-item">
           <router-link to="/registers" class="nav-link">
@@ -18,12 +25,6 @@
       </ul>
       <ul v-if="GStore.currentUser" class="navbar-nav ml-auto">
         <li class="nav-item">
-          <router-link to="/profile" class="nav-link">
-            <font-awesome-icon icon="user" />
-            {{ GStore.currentUser.name }}
-          </router-link>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" @click="logout">
             <font-awesome-icon icon="sign-out-alt" /> LogOut
           </a>
@@ -31,12 +32,9 @@
       </ul>
     </nav>
 
-    <router-link :to="{ name: 'EventList' }">Home</router-link> |
-    <router-link :to="{ name: 'Buycoins' }">Buy</router-link> |
+    <router-link :to="{ name: 'Trading' }"><font-awesome-icon icon="home" /> Home</router-link> | 
+    <router-link :to="{ name: 'Buycoins' }">Buy</router-link> | 
     <router-link :to="{ name: 'Sellcoins' }">Sell</router-link>
-    <span v-if="isAdmin"
-      >| <router-link :to="{ name: 'AddEvent' }">New Event</router-link></span
-    >
   </div>
 
   <!-- new element -->
@@ -93,12 +91,10 @@ export default {
 #nav a {
   font-weight: bold;
   color: #2c3e50;
+  font-size: 20px;
 }
 
 #nav a.router-link-exact-active {
-  color: #42b983;
-}
-h4 {
-  font-size: 20px;
+  color: #af6237;
 }
 </style>

@@ -25,7 +25,7 @@
           </div>
 
           <div class="form-group">
-            <button class="btn btn-primary btn-block" :disabled="loading">
+            <button class="btn btn-block btn-color" :disabled="loading">
               <span
                 v-show="loading"
                 class="spinner-border spinner-border-sm"
@@ -116,6 +116,8 @@ export default {
 label {
   display: block;
   margin-top: 10px;
+  text-align: start;
+  color: #7e4626;
 }
 
 .card-container.card {
@@ -148,5 +150,10 @@ label {
 
 .error-feedback {
   color: red;
+}
+
+.btn-color {
+  background-color: #7e4626;
+  color: white;
 }
 </style>

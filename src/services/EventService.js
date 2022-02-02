@@ -1,4 +1,4 @@
-import apiClient from '@/services/AxiosClient.js'
+/* import apiClient from '@/services/AxiosClient.js'
 
 export default {
   getEvents(perPage, page) {
@@ -26,3 +26,4 @@ export default {
     })
   }
 }
+ */
