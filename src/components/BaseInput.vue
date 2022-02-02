@@ -1,5 +1,5 @@
 <template>
-  <label v-if="label">{{ label }}</label>
+  <!-- <label v-if="label">Input amount coins</label> -->
   <input
     class="field"
     :placeholder="label"
@@ -28,3 +28,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.field {
+  width: 200px;
+}
+</style>

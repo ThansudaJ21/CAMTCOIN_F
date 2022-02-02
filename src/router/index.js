@@ -6,14 +6,16 @@ import EventList from '../views/EventList.vue'
 // import EventEdit from '@/views/event/Edit.vue'
 import EventLayout from '@/views/event/Layout.vue'
 import NotFound from '@/views/NotFound.vue'
-import AddEvent from '@/views/EventForm.vue'
+// import AddEvent from '@/views/EventForm.vue'
 import NetWorkError from '@/views/NetworkError.vue'
 import NProgress from 'nprogress'
 import EventService from '@/services/EventService.js'
 import GStore from '@/store'
-import OrganizerService from '@/services/OrganizerService.js'
+// import OrganizerService from '@/services/OrganizerService.js'
 import Login from '@/views/LoginForm.vue'
 import Register from '@/views/RegisterForm.vue'
+import Buycoins from '@/views/Buyform.vue'
+import Sellcoins from '@/views/Sellform.vue'
 
 const routes = [
   {
@@ -23,21 +25,21 @@ const routes = [
     props: (route) => ({ page: parseInt(route.query.page) || 1 })
   },
 
-  {
-    path: '/add-event',
-    name: 'AddEvent',
-    component: AddEvent,
-    beforeEnter: () => {
-      return OrganizerService.getOrganizers()
-        .then((response) => {
-          GStore.organizers = response.data
-        })
-        .catch(() => {
-          GStore.organizers = null
-          console.log('cannot load organizer')
-        })
-    }
-  },
+  // {
+  //   path: '/add-event',
+  //   name: 'AddEvent',
+  //   component: AddEvent,
+  //   beforeEnter: () => {
+  //     return OrganizerService.getOrganizers()
+  //       .then((response) => {
+  //         GStore.organizers = response.data
+  //       })
+  //       .catch(() => {
+  //         GStore.organizers = null
+  //         console.log('cannot load organizer')
+  //       })
+  //   }
+  // },
   {
     path: '/event/:id',
     name: 'EventLayout',
@@ -91,6 +93,16 @@ const routes = [
     path: '/network-error',
     name: 'NetworkError',
     component: NetWorkError
+  },
+  {
+    path: '/buycoins',
+    name: 'Buycoins',
+    component: Buycoins
+  },
+  {
+    path: '/sellcoins',
+    name: 'Sellcoins',
+    component: Sellcoins
   }
 ]
 

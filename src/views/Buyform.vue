@@ -1,40 +1,29 @@
 <template>
   <div>
-    <h1>Create an event</h1>
+    <h1>BUY COINS</h1>
     <form @submit.prevent="saveEvent">
-      <BaseInput v-model="event.category" type="text" label="Category" />
-      <h3>Name & describe your event</h3>
+      <br />
+      <div class="row">
+        <label>Input amount coins</label>
+      </div>
 
-      <BaseInput v-model="event.title" type="text" label="Title" />
-
-      <!-- <BaseInput v-model="event.description" type="text" label="Description" /> -->
-
-      <h3>Where is your event?</h3>
-
-      <BaseInput v-model="event.location" type="text" label="Location" />
-
-      <h3>Who is your organizer?</h3>
-
-      <BaseSelect
-        :options="GStore.organizers"
-        v-model="event.organizer.id"
-        label="Select an Organizer"
-      />
-      <h3>The image of the Event</h3>
-      <UploadImages @changed="handleImages" />
-      <button type="submit">Submit</button>
+      <div class="row">
+        <BaseInput v-model="event.category" type="text" label="Amount coins" />
+        <div class="text">/ 5</div>
+      </div>
+      <div class="row">
+        <button class="btn_name" type="submit">Confirm</button>
+        <button type="submit">Cancle</button>
+      </div>
     </form>
-
-    <pre>{{ event }}</pre>
   </div>
 </template>
 <script>
 import EventService from '@/services/EventService.js'
-import UploadImages from 'vue-upload-drop-images'
 export default {
   inject: ['GStore'],
   components: {
-    UploadImages
+    // UploadImages
   },
 
   data() {
@@ -85,6 +74,17 @@ export default {
 }
 </script>
 <style>
+.text {
+  margin-left: 10px;
+  font-size: 40px;
+}
+.btn_name {
+  margin-right: 10px;
+}
+
+.row {
+  justify-content: center;
+}
 b,
 strong {
   font-weight: bolder;

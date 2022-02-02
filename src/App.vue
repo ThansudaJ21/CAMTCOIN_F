@@ -32,7 +32,8 @@
     </nav>
 
     <router-link :to="{ name: 'EventList' }">Home</router-link> |
-    <!-- <router-link >About</router-link> -->
+    <router-link :to="{ name: 'Buycoins' }">Buy</router-link> |
+    <router-link :to="{ name: 'Sellcoins' }">Sell</router-link>
     <span v-if="isAdmin"
       >| <router-link :to="{ name: 'AddEvent' }">New Event</router-link></span
     >
