@@ -25,7 +25,8 @@
   </div>
 </template>
 <script>
-import EventService from '@/services/EventService.js'
+/* import TradingtService from '../services/TradingService.js' */
+
 // import UploadImages from 'vue-upload-drop-images'
 export default {
   inject: ['GStore'],
@@ -46,17 +47,17 @@ export default {
       files: []
     }
   },
-  methods: {
+  /* methods: {
     saveEvent() {
       console.log(this.files)
 
       Promise.all(
         this.files.map((file) => {
-          return EventService.uploadFile(file)
+          return TradingtService.uploadFile(file)
         })
       ).then((response) => {
         this.event.imageUrls = response.map((r) => r.data)
-        EventService.saveEvent(this.event)
+        TradingtService.saveEvent(this.event)
           .then((response) => {
             console.log(response)
             this.$router.push({
@@ -77,7 +78,7 @@ export default {
     handleImages(files) {
       this.files = files
     }
-  }
+  } */
 }
 </script>
 <style>

@@ -4,17 +4,18 @@
       <div class="col-4">
         <div class="profile-card">
           <img
-            src="../assets/pusheen_hi.jpg"
+            src="../assets/user.png"
             style="width: 250px; border-radius: 50%; margin-bottom: 20px"
           />
-          <h3 class="full-name">Pusheen The Cat</h3>
-          <h6 class="username">@username</h6>
-          <h4>50 THB</h4>
-          <h4>10 CAMT COINS</h4>
+          <h6 class="username">@{{ user.username }}</h6>
+          <h4>{{ user.balance }} THB</h4>
+          <h4>{{ user.coin }} CAMT COINS</h4>
         </div>
       </div>
       <div class="col-8">
-        <h2 class="text-available">Available coins for today "amount" coins</h2>
+        <h2 class="text-available">
+          Available coins for today {{ coins }} coins
+        </h2>
         <div class="coin-card">
           <div class="row">
             <div class="col-1">
@@ -32,126 +33,40 @@
       </div>
     </div>
   </div>
-
-  <!--   <h1>Events For Good</h1>
-
-  <div class="events">
-    <div class="search-box">
-      <BaseInput
-        v-model="keyword"
-        type="text"
-        label="Search..."
-        @input="updateKeyword"
-      />
-    </div>
-
-    <EventCard v-for="event in events" :key="event.id" :event="event" />
-    <div class="pagination">
-      <router-link
-        id="page-prev"
-        :to="{ name: 'EventList', query: { page: page - 1 } }"
-        rel="prev"
-        v-if="page != 1"
-      >
-        Prev Page</router-link
-      >
-
-      <router-link
-        id="page-next"
-        :to="{ name: 'EventList', query: { page: page + 1 } }"
-        rel="next"
-        v-if="hasNextPage"
-      >
-        Next Page</router-link
-      >
-    </div>
-  </div> -->
 </template>
 
 <script>
-// @ is an alias to /src
-/* import EventCard from '@/components/EventCard.vue'
-import EventService from '@/services/EventService.js' */
+import TradingtService from '../services/TradingService.js'
+/* import { watchEffect } from '@vue/runtime-core' */
 
-// import axios from 'axios'
 export default {
-  name: 'Trading'
-  /*   props: {
-    page: {
-      type: Number,
-      required: true
-    }
-  }, */
-  /*   components: {
-    EventCard // register it as a child component
-  }, */
-  /*   data() {
+  name: 'Trading',
+  inject: ['GStore'],
+  data() {
     return {
-      events: null,
-      totalEvents: 0, // <--- Added this to store totalEvents
-      keyword: null
+      coins: null,
+      user: ''
     }
-  }, */
-
-  // eslint-disable-next-line no-unused-vars
-  /*   beforeRouteEnter(routeTo, routeFrom, next) {
-    EventService.getEvents(3, parseInt(routeTo.query.page) || 1)
-      .then((response) => {
-        next((comp) => {
-          comp.events = response.data
-          comp.totalEvents = response.headers['x-total-count']
-        })
-      })
-      .catch(() => {
-        next({ name: 'NetworkError' })
-      })
   },
-  beforeRouteUpdate(routeTo) {
-    var queryFunction
-    if (this.keyword == null || this.keyword === '') {
-      queryFunction = EventService.getEvents(
-        3,
-        parseInt(routeTo.query.page) || 1
-      )
-    } else {
-      queryFunction = EventService.getEventByKeyword(
-        this.keyword,
-        3,
-        parseInt(routeTo.query.page) || 1
-      )
-    }
-
-    queryFunction
+  created() {
+    /* watchEffect(() => { */
+    TradingtService.getCoinGenerate()
       .then((response) => {
-        this.events = response.data // <-----
-        this.totalEvents = response.headers['x-total-count'] // <-----
+        this.coins = response.data
       })
-      .catch(() => {
-        return { name: 'NetworkError' }
-      }) */
-}
-/*   methods: {
-    updateKeyword() {
-      var queryFunction
-      if (this.keyword === '') {
-        queryFunction = EventService.getEvents(3, 1)
-      } else {
-        queryFunction = EventService.getEventByKeyword(this.keyword, 3, 1)
-      }
-
-      queryFunction
+      .catch((error) => {
+        console.log(error)
+      }),
+      TradingtService.getUser(this.GStore.currentUser.id)
         .then((response) => {
-          this.events = response.data
-          console.log(this.events)
-          this.totalEvents = response.headers['x-total-count']
-          console.log(this.totalEvents)
+          this.user = response.data
         })
-        .catch(() => {
-          return { name: 'NetworkError' }
+        .catch((error) => {
+          console.log(error)
         })
-    }
-  } 
-}*/
+    /* }) */
+  }
+}
 </script>
 <style scoped>
 .trading {

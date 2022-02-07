@@ -34,11 +34,12 @@
     </nav>
 
     <div v-if="GStore.currentUser">
-      <router-link :to="{ name: 'Trading' }"
+      <router-link
+        :to="{ name: 'Trading', params: { id: this.GStore.currentUser.id } }"
         ><font-awesome-icon icon="home" /> Home</router-link
       >
-      | <router-link :to="{ name: 'Buycoins' }">Buy</router-link> |
-      <router-link :to="{ name: 'Sellcoins' }">Sell</router-link>
+      | <router-link to="/buycoins">Buy</router-link> |
+      <router-link to="/sellcoins">Sell</router-link>
     </div>
   </div>
 
@@ -61,12 +62,12 @@ export default {
   methods: {
     logout() {
       AuthService.logout()
-      this.$router.go()
+      this.$router.push('/login')
     }
   },
   mounted() {
     if (!this.GStore.currentUser) {
-      this.$router.push('/login')
+      this.$router.push({ name: 'Login' })
     } else if (this.isUser) {
       this.$router.push({
         name: 'Trading',

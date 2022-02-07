@@ -72,8 +72,8 @@ export default {
   methods: {
     handleLogin(user) {
       AuthService.login(user)
-        .then(() => {
-          this.$router.push({ name: 'Trading' })
+        .then((response) => {
+          this.$router.push('/trading/' + response.user.id + '')
         })
         .catch(() => {
           this.message = 'could not login'
