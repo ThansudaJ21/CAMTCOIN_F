@@ -61,6 +61,14 @@ export default {
       schema
     }
   },
+  computed: {
+    currentUser() {
+      return localStorage.AuthService('user')
+    },
+    isUser() {
+      return AuthService.hasRoles('ROLE_USER')
+    }
+  },
   methods: {
     handleLogin(user) {
       AuthService.login(user)

@@ -7,7 +7,8 @@
       <ul class="navbar-nav">
         <li class="nav-item">
           <router-link to="/" class="nav-link" style="color: orange">
-            <img src="../src/assets/camtcoin.png" style="width: 40px" /> CAMT COINS
+            <img src="../src/assets/camtcoin.png" style="width: 40px" /> CAMT
+            COINS
           </router-link>
         </li>
       </ul>
@@ -32,9 +33,13 @@
       </ul>
     </nav>
 
-    <router-link :to="{ name: 'Trading' }"><font-awesome-icon icon="home" /> Home</router-link> | 
-    <router-link :to="{ name: 'Buycoins' }">Buy</router-link> | 
-    <router-link :to="{ name: 'Sellcoins' }">Sell</router-link>
+    <div v-if="GStore.currentUser">
+      <router-link :to="{ name: 'Trading' }"
+        ><font-awesome-icon icon="home" /> Home</router-link
+      >
+      | <router-link :to="{ name: 'Buycoins' }">Buy</router-link> |
+      <router-link :to="{ name: 'Sellcoins' }">Sell</router-link>
+    </div>
   </div>
 
   <!-- new element -->
@@ -47,17 +52,26 @@ export default {
   inject: ['GStore'],
   computed: {
     currentUser() {
-      return localStorage.getItem('user')
+      return localStorage.AuthService('user')
     },
-    isAdmin() {
-      return AuthService.hasRoles('ROLE_ADMIN')
+    isUser() {
+      return AuthService.hasRoles('ROLE_USER')
     }
   },
-
   methods: {
     logout() {
       AuthService.logout()
       this.$router.go()
+    }
+  },
+  mounted() {
+    if (!this.GStore.currentUser) {
+      this.$router.push('/login')
+    } else if (this.isUser) {
+      this.$router.push({
+        name: 'Trading',
+        params: { id: this.GStore.currentUser.id }
+      })
     }
   }
 }
