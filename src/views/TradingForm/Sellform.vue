@@ -20,7 +20,7 @@
       </div>
       <br />
       <button class="btn_name" type="submit">Confirm</button>
-      <button type="button">Cancle</button>
+      <button type="button">Cancel</button>
     </form>
   </div>
 </template>

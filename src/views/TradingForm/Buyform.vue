@@ -22,9 +22,6 @@
 import TradingtService from '@/services/TradingService.js'
 export default {
   inject: ['GStore'],
-  components: {
-    // UploadImages
-  },
 
   data() {
     return {
@@ -35,17 +32,23 @@ export default {
     buyCoins() {
       console.log(this.amount)
       TradingtService.buyCoin(this.GStore.currentUser.id, this.amount)
-              .then((response) => {
+        .then((response) => {
           console.log(response.data)
-          this.$router.push({
-            name: 'Trading',
-            params: { id: this.GStore.currentUser.id }
-          })
-          this.GStore.flashMessage =
-            'You are successfully sell coins'
-          setTimeout(() => {
-            this.GStore.flashMessage = ''
-          }, 3000)
+          if (response.data == false) {
+            this.GStore.flashMessage = 'Transection fail'
+            setTimeout(() => {
+              this.GStore.flashMessage = ''
+            }, 3000)
+          } else {
+            this.$router.push({
+              name: 'Trading',
+              params: { id: this.GStore.currentUser.id }
+            })
+            this.GStore.flashMessage = 'You are successfully buy coins'
+            setTimeout(() => {
+              this.GStore.flashMessage = ''
+            }, 3000)
+          }
         })
         .catch(() => {
           this.$router.push('NetworkError')

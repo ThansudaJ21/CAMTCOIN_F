@@ -14,7 +14,7 @@
       </div>
       <div class="col-8">
         <h2 class="text-available">
-          Available coins for today {{ coins }} coins
+          Available coins for today {{ GStore.coinPerday }} coins
         </h2>
         <div class="coin-card">
           <div class="row">
@@ -49,14 +49,7 @@ export default {
     }
   },
   created() {
-    /* watchEffect(() => { */
-    TradingtService.getCoinGenerate()
-      .then((response) => {
-        this.coins = response.data
-      })
-      .catch((error) => {
-        console.log(error)
-      }),
+    
       TradingtService.getUser(this.GStore.currentUser.id)
         .then((response) => {
           this.user = response.data

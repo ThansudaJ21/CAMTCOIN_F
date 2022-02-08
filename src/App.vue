@@ -48,9 +48,15 @@
 </template>
 <script>
 import AuthService from '@/services/AuthService.js'
-
+import TradingService from '@/services/TradingService.js'
 export default {
   inject: ['GStore'],
+  data() {
+    return {
+      list: [],
+      timer: ''
+    }
+  },
   computed: {
     currentUser() {
       return localStorage.AuthService('user')
@@ -63,6 +69,19 @@ export default {
     logout() {
       AuthService.logout()
       this.$router.push('/login')
+    },
+    fetchEventsList() {
+      TradingService.getCoinGenerate()
+      .then((response) => {
+        this.GStore.coinPerday = response.data
+        this.$router.push({
+          name: 'Trading',
+          params: { id: this.GStore.currentUser.id }
+        })
+      })
+    },
+    cancelAutoUpdate() {
+      clearInterval(this.timer)
     }
   },
   mounted() {
@@ -74,6 +93,20 @@ export default {
         params: { id: this.GStore.currentUser.id }
       })
     }
+  },
+  created() {
+    TradingService.getCoinGenerate().then((response) => {
+      this.GStore.coinPerday = response.data
+      this.$router.push({
+        name: 'Trading',
+        params: { id: this.GStore.currentUser.id }
+      })
+    })
+    console.log(this.GStore.coinPerday)
+    this.timer = setInterval(this.fetchEventsList, 10000)
+  },
+  beforeUnmount() {
+    this.cancelAutoUpdate()
   }
 }
 </script>
