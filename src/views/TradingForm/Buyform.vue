@@ -13,7 +13,7 @@
       </div>
       <div class="row">
         <button class="btn_name" type="submit">Confirm</button>
-        <button type="submit">Cancel</button>
+        <button type="button">Cancel</button>
       </div>
     </form>
   </div>
@@ -30,29 +30,35 @@ export default {
   },
   methods: {
     buyCoins() {
-      console.log(this.amount)
-      TradingtService.buyCoin(this.GStore.currentUser.id, this.amount)
-        .then((response) => {
-          console.log(response.data)
-          if (response.data == false) {
-            this.GStore.flashMessage = 'Transection fail'
-            setTimeout(() => {
-              this.GStore.flashMessage = ''
-            }, 3000)
-          } else {
-            this.$router.push({
-              name: 'Trading',
-              params: { id: this.GStore.currentUser.id }
-            })
-            this.GStore.flashMessage = 'You are successfully buy coins'
-            setTimeout(() => {
-              this.GStore.flashMessage = ''
-            }, 3000)
-          }
-        })
-        .catch(() => {
-          this.$router.push('NetworkError')
-        })
+      if (this.amount === '' || this.amount === '0') {
+        this.GStore.flashMessage = 'Please input amount coins'
+        setTimeout(() => {
+          this.GStore.flashMessage = ''
+        }, 3000)
+      } else {
+        TradingtService.buyCoin(this.GStore.currentUser.id, this.amount)
+          .then((response) => {
+            console.log(response.data)
+            if (response.data == false) {
+              this.GStore.flashMessage = 'Transection fail'
+              setTimeout(() => {
+                this.GStore.flashMessage = ''
+              }, 3000)
+            } else {
+              this.$router.push({
+                name: 'Trading',
+                params: { id: this.GStore.currentUser.id }
+              })
+              this.GStore.flashMessage = 'You are successfully buy coins'
+              setTimeout(() => {
+                this.GStore.flashMessage = ''
+              }, 3000)
+            }
+          })
+          .catch(() => {
+            this.$router.push('NetworkError')
+          })
+      }
     }
   }
 }

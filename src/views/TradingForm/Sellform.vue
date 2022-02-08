@@ -33,35 +33,41 @@ export default {
   components: {
     // UploadImages
   },
-  props: ["id"],
+  props: ['id'],
   data() {
     return {
       coin: {
-        coin: 0,
-        price: 0
+        coin: '',
+        price: ''
       }
     }
   },
   methods: {
     saveSell() {
-      console.log(this.GStore.currentUser.id)
-      TradingtService.sellCoin(this.GStore.currentUser.id, this.coin)
-        .then((response) => {
-          console.log(response.data)
-          this.$router.push({
-            name: 'Trading',
-            params: { id: response.data.id }
+      if (this.coin.coin === '' || this.coin.price === '' || this.coin.coin === '0' || this.coin.price === '0') {
+        this.GStore.flashMessage = 'Please input amount coins'
+        setTimeout(() => {
+          this.GStore.flashMessage = ''
+        }, 3000)
+      } else {
+        TradingtService.sellCoin(this.GStore.currentUser.id, this.coin)
+          .then((response) => {
+            console.log(response.data)
+            this.$router.push({
+              name: 'Trading',
+              params: { id: response.data.id }
+            })
+            this.GStore.flashMessage =
+              'You are successfully sell ' + this.coin.coin + ' coins'
+            setTimeout(() => {
+              this.GStore.flashMessage = ''
+            }, 3000)
           })
-          this.GStore.flashMessage =
-            'You are successfully sell ' + this.coin.coin + ' coins'
-          setTimeout(() => {
-            this.GStore.flashMessage = ''
-          }, 3000)
-        })
-        .catch(() => {
-          this.$router.push('NetworkError')
-        })
-    },
+          .catch(() => {
+            this.$router.push('NetworkError')
+          })
+      }
+    }
   }
 }
 </script>
