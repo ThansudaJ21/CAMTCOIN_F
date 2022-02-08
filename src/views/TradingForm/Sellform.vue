@@ -49,20 +49,33 @@ export default {
         setTimeout(() => {
           this.GStore.flashMessage = ''
         }, 3000)
-      } else {
+      }
+      else if(this.coin.coin < 5 ){
+        this.GStore.flashMessage = 'Your coin is too low. The minimum coin for the transaction is 5 coin'
+        setTimeout(() => {
+          this.GStore.flashMessage = ''
+        }, 3000)
+      }
+      else {
         TradingtService.sellCoin(this.GStore.currentUser.id, this.coin)
           .then((response) => {
             console.log(response.data)
+              if (response.data == false) {
+              this.GStore.flashMessage = 'Transection fail'
+              setTimeout(() => {
+                this.GStore.flashMessage = ''
+              }, 3000)
+            } else{
             this.$router.push({
               name: 'Trading',
-              params: { id: response.data.id }
+              params: { id: this.GStore.currentUser.id}
             })
             this.GStore.flashMessage =
               'You are successfully sell ' + this.coin.coin + ' coins'
             setTimeout(() => {
               this.GStore.flashMessage = ''
             }, 3000)
-          })
+          }})
           .catch(() => {
             this.$router.push('NetworkError')
           })
