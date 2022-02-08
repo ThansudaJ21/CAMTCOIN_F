@@ -19,7 +19,7 @@
   </div>
 </template>
 <script>
-import tradingpage from '@/services/TradingService.js'
+import TradingtService from '@/services/TradingService.js'
 export default {
   inject: ['GStore'],
   components: {
@@ -29,18 +29,23 @@ export default {
   data() {
     return {
       amount: ''
-      // id: this.GStore.currentUser.id
     }
   },
   methods: {
     buyCoins() {
-      tradingpage.buyCoin(this.GStore.currentUser.id, this.amount)
-        .then((response) => {
-          console.log(response)
+      console.log(this.amount)
+      TradingtService.buyCoin(this.GStore.currentUser.id, this.amount)
+              .then((response) => {
+          console.log(response.data)
           this.$router.push({
             name: 'Trading',
             params: { id: this.GStore.currentUser.id }
           })
+          this.GStore.flashMessage =
+            'You are successfully sell coins'
+          setTimeout(() => {
+            this.GStore.flashMessage = ''
+          }, 3000)
         })
         .catch(() => {
           this.$router.push('NetworkError')
