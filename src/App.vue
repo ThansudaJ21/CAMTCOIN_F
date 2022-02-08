@@ -79,6 +79,7 @@ export default {
           params: { id: this.GStore.currentUser.id }
         })
       })
+      console.log(this.GStore.coinPerday)
     },
     cancelAutoUpdate() {
       clearInterval(this.timer)
@@ -95,15 +96,17 @@ export default {
     }
   },
   created() {
-    TradingService.getCoinGenerate().then((response) => {
+    TradingService.getCoinGenerate()
+    .then((response) => {
       this.GStore.coinPerday = response.data
       this.$router.push({
         name: 'Trading',
         params: { id: this.GStore.currentUser.id }
       })
+      
     })
-    console.log(this.GStore.coinPerday)
-    this.timer = setInterval(this.fetchEventsList, 10000)
+    
+    this.timer = setInterval(this.fetchEventsList, 86400000)
   },
   beforeUnmount() {
     this.cancelAutoUpdate()

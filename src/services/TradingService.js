@@ -13,4 +13,7 @@ export default {
   buyCoin(id, amount) {
     return apiClient.post('/user/' + id + '/buy', amount)
   },
+  checkCoins() {
+    return apiClient.get('/coin/amount')
+  }
 }

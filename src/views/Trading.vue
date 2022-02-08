@@ -14,7 +14,7 @@
       </div>
       <div class="col-8">
         <h2 class="text-available">
-          Available coins for today {{ GStore.coinPerday }} coins
+          Available coins for today {{ coins }} coins
         </h2>
         <div class="coin-card">
           <div class="row">
@@ -49,17 +49,23 @@ export default {
     }
   },
   created() {
-    
-      TradingtService.getUser(this.GStore.currentUser.id)
-        .then((response) => {
-          this.user = response.data
-        })
-        .catch((error) => {
-          console.log(error)
-        })
-    /* }) */
+    TradingtService.getUser(this.GStore.currentUser.id)
+      .then((response) => {
+        this.user = response.data
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    TradingtService.checkCoins().then((response) => {
+      this.coins = response.data
+      console.log(this.coins)
+    })
   }
 }
+setInterval(function () {
+  window.location.reload()
+}, 86400000)
+
 </script>
 <style scoped>
 .trading {
