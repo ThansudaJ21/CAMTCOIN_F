@@ -18,128 +18,127 @@ import TradingtService from '../services/TradingService.js'
 import GStore from '@/store'
 // import OrganizerService from '@/services/OrganizerService.js'
 
-const routes = [
-  {
-    path: '/trading/:id',
-    name: 'Trading',
-    props: true,
-    component: Trading,
-    beforeEnter: (to) => {
-      console.log(to.params.id)
-      return TradingtService.getUser(to.params.id)
-        .then((response) => {
-          GStore.profile = response.data
-        })
-        .catch((error) => {
-          if (error.response && error.response.status == 404) {
-            return {
-              name: '404Resource',
-              params: { resource: 'profile' }
-            }
-          } else {
-            return { name: 'NetworkError' }
-          }
-        })
+const routes = [{
+        path: '/trading/:id',
+        name: 'Trading',
+        props: true,
+        component: Trading,
+        beforeEnter: (to) => {
+            console.log(to.params.id)
+            return TradingtService.getUser(to.params.id)
+                .then((response) => {
+                    GStore.profile = response.data.id
+                })
+                .catch((error) => {
+                    if (error.response && error.response.status == 404) {
+                        return {
+                            name: '404Resource',
+                            params: { resource: 'profile' }
+                        }
+                    } else {
+                        return { name: 'NetworkError' }
+                    }
+                })
+        },
     },
-  },
 
-  // {
-  //   path: '/add-event',
-  //   name: 'AddEvent',
-  //   component: AddEvent,
-  //   beforeEnter: () => {
-  //     return OrganizerService.getOrganizers()
-  //       .then((response) => {
-  //         GStore.organizers = response.data
-  //       })
-  //       .catch(() => {
-  //         GStore.organizers = null
-  //         console.log('cannot load organizer')
-  //       })
-  //   }
-  // },
-  /*   {
-      path: '/event/:id',
-      name: 'EventLayout',
-      props: true,
-      component: EventLayout,
-      beforeEnter: (to) => {
-        return EventService.getEvent(to.params.id) // Return and params.id
-          .then((response) => {
-            // Still need to set the data here
-            GStore.event = response.data // <--- Store the event
-          })
-          .catch((error) => {
-            if (error.response && error.response.status == 404) {
-              return {
-                // <--- Return
-                name: '404Resource',
-                params: { resource: 'event' }
+    // {
+    //   path: '/add-event',
+    //   name: 'AddEvent',
+    //   component: AddEvent,
+    //   beforeEnter: () => {
+    //     return OrganizerService.getOrganizers()
+    //       .then((response) => {
+    //         GStore.organizers = response.data
+    //       })
+    //       .catch(() => {
+    //         GStore.organizers = null
+    //         console.log('cannot load organizer')
+    //       })
+    //   }
+    // },
+    /*   {
+        path: '/event/:id',
+        name: 'EventLayout',
+        props: true,
+        component: EventLayout,
+        beforeEnter: (to) => {
+          return EventService.getEvent(to.params.id) // Return and params.id
+            .then((response) => {
+              // Still need to set the data here
+              GStore.event = response.data // <--- Store the event
+            })
+            .catch((error) => {
+              if (error.response && error.response.status == 404) {
+                return {
+                  // <--- Return
+                  name: '404Resource',
+                  params: { resource: 'event' }
+                }
+              } else {
+                return { name: 'NetworkError' } // <--- Return
               }
-            } else {
-              return { name: 'NetworkError' } // <--- Return
-            }
-          })
-      },
-      children: [
+            })
+        },
+        children: [
   
-      ]
-    }, */
-  {
-    path: '/404/:resource',
-    name: '404Resource',
-    component: NotFound,
-    props: true
-  },
-  {
-    path: '/login',
-    name: 'Login',
-    component: Login
-  },
-  {
-    path: '/registers',
-    name: 'Register',
-    component: Register
-  },
+        ]
+      }, */
+    {
+        path: '/404/:resource',
+        name: '404Resource',
+        component: NotFound,
+        props: true
+    },
+    {
+        path: '/login',
+        name: 'Login',
+        component: Login
+    },
+    {
+        path: '/registers',
+        name: 'Register',
+        component: Register
+    },
 
-  {
-    path: '/:catchAll(.*)',
-    name: 'NotFound',
-    component: NotFound
-  },
-  {
-    path: '/network-error',
-    name: 'NetworkError',
-    component: NetWorkError
-  },
-  {
-    path: '/buycoins',
-    name: 'Buycoins',
-    component: Buycoins
-  },
-  {
-    path: '/sellcoins',
-    name: 'Sellcoins',
-    component: Sellcoins
-  }
+    {
+        path: '/:catchAll(.*)',
+        name: 'NotFound',
+        component: NotFound
+    },
+    {
+        path: '/network-error',
+        name: 'NetworkError',
+        component: NetWorkError
+    },
+    {
+        path: '/buycoins',
+        name: 'Buycoins',
+        component: Buycoins
+    },
+    {
+        path: '/sellcoins',
+        name: 'Sellcoins',
+        component: Sellcoins,
+    }
 ]
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
-  routes,
-  scrollBehavior(to, from, savedPosition) {
-    if (savedPosition) {
-      return savedPosition
-    } else {
-      return { top: 0 }
+    history: createWebHistory(process.env.BASE_URL),
+    routes,
+    scrollBehavior(to, from, savedPosition) {
+        if (savedPosition) {
+            return savedPosition
+        } else {
+            return { top: 0 }
+        }
     }
-  }
 })
 router.beforeEach(() => {
-  NProgress.start()
+    NProgress.start()
 })
 
 router.afterEach(() => {
-  NProgress.done()
+    NProgress.done()
 })
 export default router

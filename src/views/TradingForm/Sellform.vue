@@ -1,31 +1,31 @@
 <template>
   <div>
     <h1 class="title-sell">SELL COINS</h1>
-    <form @submit.prevent="saveEvent">
+    <form @submit.prevent="saveSell">
       <br />
       <div class="row">
         <label>Input amount coins</label>
       </div>
 
       <div class="row">
-        <BaseInput v-model="event.category" type="text" label="Amount coins" />
+        <BaseInput v-model="coin.coin" type="text" label="Amount coins" />
         <div class="text">Coins</div>
       </div>
       <div class="row">
         <label>Input price for each coin</label>
       </div>
       <div class="row">
-        <BaseInput v-model="event.category" type="text" label="Price" />
+        <BaseInput v-model="coin.price" type="text" label="Price" />
         <div class="text">/ THB</div>
       </div>
       <br />
       <button class="btn_name" type="submit">Confirm</button>
-      <button type="submit">Cancle</button>
+      <button type="button">Cancle</button>
     </form>
   </div>
 </template>
 <script>
-/* import TradingtService from '../services/TradingService.js' */
+import TradingtService from '@/services/TradingService.js'
 
 // import UploadImages from 'vue-upload-drop-images'
 export default {
@@ -33,52 +33,36 @@ export default {
   components: {
     // UploadImages
   },
-
+  props: ["id"],
   data() {
     return {
-      event: {
-        category: '',
-        title: '',
-        description: '',
-        location: '',
-        organizer: { id: '', name: '' },
-        imageUrls: []
-      },
-      files: []
+      coin: {
+        coin: 0,
+        price: 0
+      }
     }
   },
-  /* methods: {
-    saveEvent() {
-      console.log(this.files)
-
-      Promise.all(
-        this.files.map((file) => {
-          return TradingtService.uploadFile(file)
+  methods: {
+    saveSell() {
+      console.log(this.GStore.currentUser.id)
+      TradingtService.sellCoin(this.GStore.currentUser.id, this.coin)
+        .then((response) => {
+          console.log(response.data)
+          this.$router.push({
+            name: 'Trading',
+            params: { id: response.data.id }
+          })
+          this.GStore.flashMessage =
+            'You are successfully sell ' + this.coin.coin + ' coins'
+          setTimeout(() => {
+            this.GStore.flashMessage = ''
+          }, 3000)
         })
-      ).then((response) => {
-        this.event.imageUrls = response.map((r) => r.data)
-        TradingtService.saveEvent(this.event)
-          .then((response) => {
-            console.log(response)
-            this.$router.push({
-              name: 'EventLayout',
-              params: { id: response.data.id }
-            })
-            this.GStore.flashMessage =
-              'You are successfully add a new event for ' + response.data.title
-            setTimeout(() => {
-              this.GStore.flashMessage = ''
-            }, 3000)
-          })
-          .catch(() => {
-            this.$router.push('NetworkError')
-          })
-      })
+        .catch(() => {
+          this.$router.push('NetworkError')
+        })
     },
-    handleImages(files) {
-      this.files = files
-    }
-  } */
+  }
 }
 </script>
 <style>
