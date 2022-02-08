@@ -1,3 +1,4 @@
+
 <template>
   <div id="flashMessage" v-if="GStore.flashMessage">
     {{ GStore.flashMessage }}
@@ -6,12 +7,14 @@
     <nav class="navbar navbar-expand">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <router-link to="/" class="nav-link" style="color: orange">
+          <router-link to="/" class="nav-link" style="color: #9C640C    ">
             <img src="../src/assets/camtcoin.png" style="width: 40px" /> CAMT
             COINS
           </router-link>
         </li>
       </ul>
+       
+      
       <ul v-if="!GStore.currentUser" class="navbar-nav ml-auto">
         <li class="nav-item">
           <router-link to="/registers" class="nav-link">
@@ -31,20 +34,22 @@
           </a>
         </li>
       </ul>
+      
     </nav>
 
-    <div v-if="GStore.currentUser">
-      <router-link
-        :to="{ name: 'Trading', params: { id: this.GStore.currentUser.id } }"
-        ><font-awesome-icon icon="home" /> Home</router-link
-      >
-      | <router-link to="/buycoins">Buy</router-link> |
-      <router-link to="/sellcoins">Sell</router-link>
-    </div>
+     <div id="middle" v-if="GStore.currentUser">
+        <router-link
+          :to="{ name: 'Trading', params: { id: this.GStore.currentUser.id } }"
+          ><font-awesome-icon icon="home" /> Home</router-link
+        >
+        | <router-link to="/buycoins">Buy</router-link> |
+        <router-link to="/sellcoins">Sell</router-link>
+      </div>
   </div>
 
   <!-- new element -->
-  <router-view />
+  <div style="margin-top: 50px"> <router-view /></div>
+ 
 </template>
 <script>
 import AuthService from '@/services/AuthService.js'
@@ -100,7 +105,8 @@ export default {
 }
 
 #nav {
-  padding: 30px;
+  background-color: #ebdfc5;
+
 }
 
 #nav a {
@@ -110,6 +116,11 @@ export default {
 }
 
 #nav a.router-link-exact-active {
-  color: #af6237;
+  color: #9C640C;
+}
+
+.middle {
+
+  justify-content: center;
 }
 </style>

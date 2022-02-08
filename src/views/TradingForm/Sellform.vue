@@ -19,8 +19,8 @@
         <div class="text">/ THB</div>
       </div>
       <br />
-      <button class="btn_name" type="submit">Confirm</button>
-      <button type="submit">Cancle</button>
+        <button  class="btn btn-success btn_name " style="padding: 15px; font-size: 15px; border-radius: 10px" type="submit">Confirm</button>
+        <button class="btn btn-danger " style="padding: 15px; font-size: 15px; border-radius: 10px"  type="submit">Cancle</button>
     </form>
   </div>
 </template>

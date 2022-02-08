@@ -1,4 +1,5 @@
 <template>
+ <div :style="image"></div>
   <div class="container trading">
     <div class="row">
       <div class="col-4">
@@ -26,7 +27,6 @@
             </div>
             <div class="col-2">
               <div class="row">10 THB</div>
-              <div class="row">00.00 %</div>
             </div>
           </div>
         </div>
@@ -69,6 +69,10 @@ export default {
 }
 </script>
 <style scoped>
+
+
+
+
 .trading {
   flex-direction: column;
   align-items: center;
@@ -77,8 +81,9 @@ export default {
 .profile-card {
   padding: 20px;
   cursor: pointer;
-  border: 1px solid #7e4626;
+  border: 1px solid #292323;
   border-radius: 2%;
+  background-color: #F8EBDE;
 }
 
 .profile-card:hover {
@@ -89,8 +94,9 @@ export default {
 .coin-card {
   padding: 20px;
   cursor: pointer;
-  border: 1px solid orangered;
+  border: 1px solid #292323;
   margin-top: 20px;
+  background-color:#F8EBDE;
 }
 
 .coin-card:hover {
