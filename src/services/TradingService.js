@@ -10,7 +10,7 @@ export default {
   sellCoin(coin) {
     return apiClient.put('/user/{id}/sell', coin)
   },
-  buyCoin(coin) {
-    return apiClient.put('/user/{id}/buy', coin)
+  buyCoin(id,amount) {
+    return apiClient.post('/user/' + id + '/buy', amount)
   },
 }

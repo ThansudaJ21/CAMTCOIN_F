@@ -1,26 +1,25 @@
 <template>
   <div>
     <h1 class="title-buy">BUY COINS</h1>
-    <form @submit.prevent="saveEvent">
+    <form @submit.prevent="buyCoins">
       <br />
       <div class="row">
         <label>Input amount coins</label>
       </div>
 
       <div class="row">
-        <BaseInput v-model="event.category" type="text" label="Amount coins" />
+        <BaseInput v-model="amount" type="text" label="Amount coins" />
         <div class="text">/ 5</div>
       </div>
       <div class="row">
         <button class="btn_name" type="submit">Confirm</button>
-        <button type="submit">Cancle</button>
+        <button type="submit">Cancel</button>
       </div>
     </form>
   </div>
 </template>
 <script>
-/* import TradingtService from '../services/TradingService.js' */
-
+import tradingpage from '@/services/TradingService.js'
 export default {
   inject: ['GStore'],
   components: {
@@ -29,49 +28,25 @@ export default {
 
   data() {
     return {
-      event: {
-        category: '',
-        title: '',
-        description: '',
-        location: '',
-        organizer: { id: '', name: '' },
-        imageUrls: []
-      },
-      files: []
+      amount: ''
+      // id: this.GStore.currentUser.id
     }
   },
-/*   methods: {
-    saveEvent() {
-      console.log(this.files)
-
-      Promise.all(
-        this.files.map((file) => {
-          return TradingtService.uploadFile(file)
+  methods: {
+    buyCoins() {
+      tradingpage.buyCoin(this.GStore.currentUser.id, this.amount)
+        .then((response) => {
+          console.log(response)
+          this.$router.push({
+            name: 'Trading',
+            params: { id: this.GStore.currentUser.id }
+          })
         })
-      ).then((response) => {
-        this.event.imageUrls = response.map((r) => r.data)
-        TradingtService.saveEvent(this.event)
-          .then((response) => {
-            console.log(response)
-            this.$router.push({
-              name: 'EventLayout',
-              params: { id: response.data.id }
-            })
-            this.GStore.flashMessage =
-              'You are successfully add a new event for ' + response.data.title
-            setTimeout(() => {
-              this.GStore.flashMessage = ''
-            }, 3000)
-          })
-          .catch(() => {
-            this.$router.push('NetworkError')
-          })
-      })
-    },
-    handleImages(files) {
-      this.files = files
+        .catch(() => {
+          this.$router.push('NetworkError')
+        })
     }
-  } */
+  }
 }
 </script>
 <style>
